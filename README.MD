@@ -56,7 +56,7 @@ Some API's you could use, but are not limited to, include:
 - [Chuck Norris Jokes API](http://www.icndb.com/api/)
 
 ##Nightmare Mode
-- [ ] Using D3, make your visusalizations respond to click and/or drag events.
+- [ ] Using D3, make your visualizations respond to click and/or drag events.
 - [ ] Develop collision detection for when your graphs physically interact.
 - [ ] Maintain an accurate count of all collisions between graphs.
 
