@@ -10,9 +10,17 @@ var makeTornadoMonths = function (data){
   return arr;
 }
 
+var tornadoObj= {};
+
+for (var i = 0; i < tornadoes.length; i++){
+   tornadoObj[tornadoes[i][0]] = tornadoes[i].slice(2)
+}
+
+console.log(tornadoObj)
+
 var tornadoMonths = makeTornadoMonths(tornadoes);
 
-// console.log(tornadoMonths)
+console.log(tornadoMonths)
 
 var w = 600;
 var h = 600;
@@ -82,28 +90,77 @@ svg.append('g')
    .attr('transform', 'translate(' + 40 + ', 5)')
    .call(yAxis)
 
-var points = svg.selectAll('circle')
-   .data(tornadoes)
-   .enter()
-   .append('circle')
-   .attr('cx', function(d){return xScale(parseInt(d[0]))+40})
-   .attr('cy', function(d) {return yScale(d[1])+ 5})
-   .attr('r', function(d){return h/yScale(d[1])})
-   .attr('fill', function(d){return 'rgba(250, 100 , 150,'+opacity(d[1])+')'});
+// var bigCircles = svg.selectAll('circle')
+//    .data(tornadoes)
+//    .enter()
+//    .append('circle')
+//    .attr('cx', function(d){return xScale(parseInt(d[0]))+40})
+//    .attr('cy', function(d) {return yScale(d[1])+ 5})
+//    .attr('r', function(d){return h/yScale(d[1])})
+//    .attr('fill', function(d){return 'rgba(250, 100 , 150,'+opacity(d[1])+')'});
 
 
-points.transition()
-      .delay(function(d, i){
-        return i*30;
-      })
-      .duration(4000)
-      .attr('r', function(d) {return (opacity(d[1])*3)+'%'})
+// var bigCircles.transition()
+//       .delay(function(d, i){
+//         return i*30;
+//       })
+//       .duration(4000)
+//       .attr('r', function(d) {return (opacity(d[1])*3)+'%'})
 
+
+// svg.select(this)
+//    .selectAll('circle')
+//    .data(tornadoMonths)
+//    .enter()
+//    .append('circle')
+//    .attr('cx', function(d){return (d[i])})
+//    .attr('cy', function(d) {return (d[i])})
+//    .attr('r', function(d){return (d[i])})
+//    .attr('fill', function(d){return 'rgb(250, 100 , 150,)'});
+
+var diameter = 960
+
+var pack = d3.layout.pack()
+             .size([300,400])
+             .padding(10)
+
+
+// svg.selectAll('g')
+//    .data(cluster(tornadoObj))
+//    .enter()
+//    .append('g');
+
+var nodes = pack.nodes(tornadoObj)
+console.log(node)
+var node = svg.selectAll(".nodes")
+               .data(nodes)
+               .enter()
+               .append("g")
+               .attr("class", "node");
+
+           node.append("circle")
+               .attr("r", 5)
+               .attr("fill", "blue")
+               .attr("opacity", 8.25)
+
+             // .data(pack.children)
+             //  .enter()
+             //  .append("g")
+
+// node.append('circle').attr('r', '5').attr('transform', 'translate(100,100)')
+console.log(nodes)
+
+
+// console.log(svg.datum(tornadoObj).selectAll('g').data(pack.children)
+//   .enter()
+//   .append("g"))
 
    // .attr('fill', function(d){return "rgba(255, "+yScale(d[1])/255+", 0, "+ opacity(d)+")"})
 
+
+
+
 // var pie = d3.layout.pie(tornadoMonths)
-//             .value(function(d, i){return i})
 
 // var arc = d3.svg.arc()
 //             .innerRadius(0)
